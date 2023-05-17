@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block title %}Użytkownik{% endblock %}
+
+
+{% if name %}
+Hello, {{ name }}!
+{% else %}
+Hello, Stranger!asd {{ name }}
+{% endif %}

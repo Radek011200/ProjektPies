@@ -2,6 +2,15 @@
 {% block content %}
 
 <div class="container">
+  {% for message in get_flashed_messages() %}
+  <div class="alert alert-warning">
+
+      <button type="button" class="close" data-
+      dismiss="alert">&times;</button>
+      
+      {{ message }}
+      </div>
+  {% endfor %}
     <a href="{{url_for('create')}}"><button class="btn btn-primary btn-lg">Dodaj pieska</button></a>
     <table class="table table-striped">
         <thead>

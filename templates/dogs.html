@@ -30,7 +30,7 @@
             <td>{{ dog.age }}</td>
             <td><embed src="static/{{ dog.photo }}" alt="{{ dog.name }}" class="img-fluid" width="150" height="150"></td>
             <td><a  href="{{url_for('edit', id=dog.id)}}"> <button type="button" class="btn btn-edit"><i class="bi bi-pen"></i> Edytuj  </button></a>
-              <a class="link-red" href="dog/{{ dog.id }}">usuń </a></td>
+              <a class="link-red" href="dog/{{ dog.id }}"><button type="button" class="btn btn-danger"><i class="bi bi-trash"></i> Usuń </button></a></td>
 
               
 

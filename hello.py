@@ -7,7 +7,6 @@ from wtforms.validators import DataRequired
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.utils import secure_filename
-from PIL import Image
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hard to guess string'
@@ -36,7 +35,6 @@ def create():
 
         photo = form.photo.data
         filename = secure_filename(photo.filename)
-        dump()
         if(filename):
             photo.save('static/' + filename)
 

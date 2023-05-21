@@ -34,26 +34,68 @@ def create():
     if form.validate_on_submit():
 
         photo = form.photo.data
-
         filename = secure_filename(photo.filename)
-
-        photo.save('static/' + filename)
+        if(filename):
+            photo.save('static/' + filename)
 
         dog = Dog(
             name = request.form.get('name'),
             breed = request.form.get('breed'),
             age = request.form.get('age'),
-            photo = '' + filename)
+            photo = filename if filename is not None else photo)
 
         db.session.add(dog)
         db.session.commit()
+        flash('Dodano pieska')
 
-        return redirect(url_for('index'))
+        return redirect(url_for('dogs'))
     return render_template('create.html', form=form, name=session.get('name'))
+
+@app.route('/edit/<int:id>', methods=['GET','POST'])
+def edit(id):
+    dog = Dog.query.get(id)
+
+    if dog is None:
+        return render_template('404.html'), 404
+    form = NameForm(
+        name = dog.name,
+        breed = dog.breed,
+        age = dog.age,
+        photo = dog.photo
+        )
+
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            photo = form.photo.data
+            filename = secure_filename(photo.filename)
+            if(filename):
+                photo.save('static/' + filename)
+            dog = Dog(
+                name = request.form.get('name'),
+                breed = request.form.get('breed'),
+                age = request.form.get('age'),
+                photo = filename if filename is not None else photo)
+            db.session.add(id)
+            db.session.commit()
+
+            flash('Edytowano pieska')
+            return redirect(url_for('dogs'))
+    return render_template('edit.html', dog=dog, form=form)
+
 
 @app.route('/user/<name>')
 def user(name):
     return render_template('user.html', name=name)
+
+@app.route("/dog/<id>")
+def dog_delete(id):
+    dog = Dog.query.get(id)
+    db.session.delete(dog)
+    db.session.commit()
+
+    flash('Usunięto pieska')
+
+    return redirect(url_for('dogs'))
 
 @app.errorhandler(404)
 def page_not_found(e):

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <a href="{{url_for('create')}}"><button class="btn btn-primary btn-lg">Dodaj pieska</button></a>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Imie</th>
+            <th>Rasa</th>
+            <th>Wiek</th>
+            <th>Zdjęcie</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for dog in dogs %}
+          <tr>
+            <td>{{ dog.name }}</td>
+            <td>{{ dog.breed }}</td>
+            <td>{{ dog.age }}</td>
+            <td><embed src="static/{{ dog.photo }}" alt="{{ dog.name }}" class="img-fluid" width="150" height="150"></td>
+          </tr>
+          {% else %} 
+          <td>Brak piesków</td>
+          {% endfor %}
+        </tbody>
+      </table>
+      
+</div>
+
+
+{% endblock %}

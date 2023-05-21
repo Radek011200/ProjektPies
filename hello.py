@@ -6,6 +6,7 @@ from wtforms import StringField, SubmitField, IntegerField, FileField
 from wtforms.validators import DataRequired
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hard to guess string'
@@ -18,24 +19,35 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
-    return render_template('index.html', dogs = Dog.query.all())
+    return render_template('index.html')
+
+@app.route('/dogs', methods=['GET', 'POST'])
+def dogs():
+    return render_template('dogs.html', dogs = Dog.query.all())
 
 @app.route('/create', methods=['GET', 'POST'])
 def create():
     name = None
     form = NameForm()
     if form.validate_on_submit():
+
+        photo = form.photo.data
+
+        filename = secure_filename(photo.filename)
+
+        photo.save('static/' + filename)
+
         dog = Dog(
             name = request.form.get('name'),
             breed = request.form.get('breed'),
             age = request.form.get('age'),
-            photo = request.form.get('photo'))
+            photo = '' + filename)
 
         db.session.add(dog)
         db.session.commit()
-        
+
         return redirect(url_for('index'))
     return render_template('create.html', form=form, name=session.get('name'))
 
@@ -89,8 +101,7 @@ class Dog(db.Model):
         primary_key=True)
     name = db.Column(db.String(64),
         nullable=False)
-    age = db.Column(db.Integer,
-        nullable=False)
+    age = db.Column(db.Integer)
     breed = db.Column(db.String(64),
         )
     photo = db.Column(db.String(100))

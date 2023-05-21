@@ -7,6 +7,7 @@ from wtforms.validators import DataRequired
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.utils import secure_filename
+from PIL import Image
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hard to guess string'
@@ -35,6 +36,7 @@ def create():
 
         photo = form.photo.data
         filename = secure_filename(photo.filename)
+        dump()
         if(filename):
             photo.save('static/' + filename)
 
@@ -61,24 +63,27 @@ def edit(id):
         name = dog.name,
         breed = dog.breed,
         age = dog.age,
-        photo = dog.photo
         )
 
     if request.method == 'POST':
         if form.validate_on_submit():
-            photo = form.photo.data
-            filename = secure_filename(photo.filename)
-            if(filename):
-                photo.save('static/' + filename)
-            dog = Dog(
-                name = request.form.get('name'),
-                breed = request.form.get('breed'),
-                age = request.form.get('age'),
-                photo = filename if filename is not None else photo)
-            db.session.add(id)
-            db.session.commit()
 
+            photo = form.photo.data
+            filename = None
+            if not isinstance(photo, str):
+                filename = secure_filename(photo.filename)
+                photo.save('static/' + filename)
+
+
+            dog.name = request.form.get('name')
+            dog.breed = request.form.get('breed')
+            dog.age = request.form.get('age')
+            dog.photo = filename if filename is not None else photo
+
+            db.session.add(dog)
+            db.session.commit()
             flash('Edytowano pieska')
+
             return redirect(url_for('dogs'))
     return render_template('edit.html', dog=dog, form=form)
 

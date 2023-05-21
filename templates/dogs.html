@@ -11,7 +11,7 @@
       {{ message }}
       </div>
   {% endfor %}
-    <a href="{{url_for('create')}}"><button class="btn btn-primary btn-lg">Dodaj pieska</button></a>
+    <a href="{{url_for('create')}}"><button class="btn btn-edit btn-lg">Dodaj pieska</button></a>
     <table class="table table-striped">
         <thead>
           <tr>
@@ -29,8 +29,10 @@
             <td>{{ dog.breed }}</td>
             <td>{{ dog.age }}</td>
             <td><embed src="static/{{ dog.photo }}" alt="{{ dog.name }}" class="img-fluid" width="150" height="150"></td>
-            <td><a  href="{{url_for('edit', id=dog.id)}}"> <button type="button" class="btn btn-info"><i class="bi bi-pen"></i> Edytuj  </button></a>
-              <a href="dog/{{ dog.id }}">usuń </a></td>
+            <td><a  href="{{url_for('edit', id=dog.id)}}"> <button type="button" class="btn btn-edit"><i class="bi bi-pen"></i> Edytuj  </button></a>
+              <a class="link-red" href="dog/{{ dog.id }}">usuń </a></td>
+
+              
 
           </tr>
           {% else %} 
@@ -38,6 +40,7 @@
           {% endfor %}
         </tbody>
       </table>
+     
       
 </div>
 

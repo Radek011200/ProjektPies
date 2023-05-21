@@ -1,11 +1,26 @@
-<!DOCTYPE html>
+html
 {% extends "base.html" %}
+{% block content %}
 
-{% block title %}Użytkownik{% endblock %}
+<div class="container">
+  <H1 style="text-align: center;">Witaj na stronie o pieskach! </H1>
+  <p>Pieski są niesamowite! To wspaniałe stworzenia, które zdobyły serca ludzi na całym świecie. Ich wierność, oddanie i radosne usposobienie sprawiają, że są doskonałymi towarzyszami życia. Niezależnie od rasy, pieski mają zdolność tworzenia niezwykle silnych więzi emocjonalnych z ludźmi.</p>
+
+<p>Pieski są z nami w dobrych i złych chwilach. Są wiernymi strażnikami, którzy pilnują naszego domu i chronią naszą rodzinę. Ich czujność i instynkt ochrony sprawiają, że czujemy się bezpiecznie. Często są także świetnymi towarzyszami zabaw dla dzieci, które mogą spędzać godziny na wspólnych igraszkach i przygodach.</p>
+
+<p>Ale pieski to nie tylko strażnicy i zabawki. Są także doskonałymi przyjaciółmi, którzy potrafią nas wysłuchać i zrozumieć, nawet jeśli nie mówimy słowami. Pieski mają niezwykłą zdolność czytania naszych emocji i dostosowywania się do nich. Kiedy jesteśmy smutni, potrafią nas pocieszyć swoją obecnością i wesołym podejściem do życia. Kiedy jesteśmy szczęśliwi, bawią się razem z nami, dodając jeszcze więcej radości do naszych chwil.</p>
+<p>
+Pieski są również doskonałymi towarzyszami w aktywności fizycznej. Lubią długie spacery i bieganie, co pozwala nam utrzymywać aktywny tryb życia. Mogą być doskonałymi partnerami w różnych sportach i aktywnościach, takich jak agility czy frisbee. Ich energiczny charakter i chęć do zabawy sprawiają, że nie nudzą się łatwo i zawsze są gotowe na nowe wyzwania.</p>
+<p>
+Nie możemy zapomnieć o niezwykłej inteligencji piesków. Są one zdolne do nauki wielu poleceń i sztuczek. Dlatego często pełnią ważne role w służbach ratunkowych, jak psy przewodniki dla niewidomych czy psy policyjne. Ich zdolności węchowe są niezrównane, co pozwala im odnajdywać zaginione osoby czy wykrywać narkotyki i materiały wybuchowe. </p>
+  <p><a href="#/create" class="cta-button">Wprowadz swojego pieska juz teraz!</a></p>
+
+  <div style="overflow: hidden;position: relative; height:200px;"  >
+    <iframe class="" rel="nofollow" style="height: 800px; width:1400px; transform: scale(0.294167) !important; transform-origin: 0px 0px;" frameborder="0" scrolling="no" 
+    src="https://www.youtube.com/embed/qZxaUFxl1rU"></iframe></div>
 
 
-{% if name %}
-Hello, {{ name }}!
-{% else %}
-Hello, Stranger!asd {{ name }}
-{% endif %}
+
+
+</div>
+{% endblock %}

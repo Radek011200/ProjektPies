@@ -1,9 +1,29 @@
 {% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
 {% block content %}
-<h1>Hello World!</h1>
 
-<h1>Hello, {% if name %}{{ name }}{% else
-    %}Stranger{% endif %}!</h1>
-    {{ wtf.quick_form(form) }}
+<div class="container">
+    <a href="{{url_for('create')}}"><button class="btn btn-primary btn-lg">Dodaj pieska</button></a>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Imie</th>
+            <th>Rasa</th>
+            <th>Wiek</th>
+            <th>Zdjęcie</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for dog in dogs %}
+          <tr>
+            <td>{{ dog.name }}</td>
+            <td>{{ dog.breed }}</td>
+            <td>{{ dog.age }}</td>
+            <td><img src="{{ dog.photo }}" alt="{{ dog.name }}" width="100"></td>
+          </tr>
+          {% else %} 
+          <td>Brak piesków</td>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
 {% endblock %}

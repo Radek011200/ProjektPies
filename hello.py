@@ -114,7 +114,7 @@ class NameForm(FlaskForm):
     breed = StringField('Rasa', validators=[DataRequired()])
     age = IntegerField('Wiek', validators=[DataRequired()])
     photo = FileField('Zdjecie')
-    submit = SubmitField('Submit')
+    submit = SubmitField('Dodaj pieska')
 
 
 class Role(db.Model):
